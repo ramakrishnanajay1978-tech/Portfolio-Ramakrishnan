@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-navy-950 text-slate-200 font-body antialiased transition-colors duration-500;
+  }
+  html.light body {
+    @apply bg-slate-50 text-slate-800;
+  }
+  h1, h2, h3, h4 {
+    @apply font-heading;
+  }
+  ::selection {
+    background: rgba(139, 92, 246, 0.4);
+  }
+  :focus-visible {
+    outline: 2px solid #22D3EE;
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-xl;
+  }
+  html.light .glass {
+    @apply bg-white/70 border-slate-200;
+  }
+  .glass-card {
+    @apply glass rounded-2xl transition-all duration-300;
+  }
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-grad-primary bg-[length:200%_200%] animate-gradient-shift;
+  }
+  .btn-primary {
+    @apply relative overflow-hidden px-7 py-3 rounded-full font-semibold text-white bg-grad-primary bg-[length:200%_200%] animate-gradient-shift shadow-glow transition-transform duration-300 hover:scale-105;
+  }
+  .btn-outline {
+    @apply relative overflow-hidden px-7 py-3 rounded-full font-semibold border border-white/20 text-slate-100 glass transition-all duration-300 hover:border-accent-cyan hover:text-accent-cyan hover:scale-105;
+  }
+  .section-eyebrow {
+    @apply text-xs tracking-[0.3em] uppercase text-accent-cyan font-semibold;
+  }
+  .section-title {
+    @apply text-3xl sm:text-4xl font-bold mt-2 mb-4;
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #3B82F6, #8B5CF6);
+  border-radius: 10px;
+}
+
+/* Cursor glow (desktop only) */
+.cursor-glow {
+  position: fixed;
+  width: 380px;
+  height: 380px;
+  border-radius: 9999px;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(139,92,246,0.15) 0%, rgba(34,211,238,0.08) 45%, transparent 70%);
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Ripple */
+.ripple-span {
+  position: absolute;
+  border-radius: 9999px;
+  background: rgba(255,255,255,0.6);
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  pointer-events: none;
+}
+
+/* Card tilt */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .cursor-glow {
+    display: none;
+  }
+}
